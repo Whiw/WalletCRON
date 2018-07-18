@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/config :: configFragment">
+    <title>정보수정</title>
+</head>
+<header th:replace="fragments/header :: headerFragment"></header>
+<div class="primary_container">
+    <div class="primary_content_column">
+        <h3>정보수정</h3>
+
+        <div class="primary_content_row">
+            <button id="changePwBtn" class="button_dark_fixed" style="flex-grow: 1; margin-right: 12px" onclick="showPwChange()" disabled="true">비밀번호 변경</button>
+            <button id="changeHpBtn" class="button_primary" style="flex-grow: 1" onclick="showHpChange()">휴대폰번호 변경</button>
+        </div>
+
+        <div id="changePwForm" class="primary_content_column">
+            <input id="pw" type="password" placeholder="Password" class="primary_input">
+            <input id="pwChk" type="password" placeholder="RePassword" class="primary_input">
+            <button id="pwChangeBtn" class="button_primary" onclick="changePw()">회원정보 수정</button>
+        </div>
+
+        <div id="changePhoneForm" class="primary_content_column" style="display: none">
+            <div class="primary_content_row" style="align-items: center">
+                <input id="phone" class="primary_input" placeholder="휴대폰번호" style="flex-grow: 1">
+                <button class="button_dark" style="width: auto" onclick="sendSms()">인증번호 전송</button>
+            </div>
+            <p style="color: #bbb; font-size: 17px; padding-left: 10px">
+                -를 제외한 숫자만 입력해 주세요.<br>
+                EX)01012345678
+            </p>
+            <div class="primary_content_row" id="sms_container">
+                <input id="sms_code" class="primary_input" placeholder="인증번호" style="flex-grow: 1" >
+                <button id="auth_btn" class="button_dark" style="width: auto" onclick="checkCode()" >인증</button>
+            </div>
+            <button class="button_primary" onclick="changeHP()">휴대폰번호 수정</button>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/config :: configFragment">
+    <title>보내기</title>
+</head>
+<header th:replace="fragments/header :: headerFragment"></header>
+
+<div class="primary_container">
+    <div class="primary_content_column">
+        <h3>송금하기</h3>
+
+        <div class="primary_content_row">
+            <input id="recipient_address" type="text" class="primary_input" style="width: 90%;"
+                   value="<%=target%>" placeholder="송금받을 지갑 주소">
+            <button class="button_dark" style="margin-left: 2px; flex-grow: 1; width: auto; padding: 0px"
+                    onclick="getLedgerInfo()">조회</button>
+        </div>
+
+        <input id="tag" type="text" class="primary_input" placeholder="데스티네이션 태그">
+
+        <input id="send_amount" type="text" class="primary_input" onblur="setTotal();"
+               placeholder="송금할 코인 수">
+
+        <div class="primary_content_row" style="align-items: baseline; padding-left: 12px">
+            <span>수수료(XRP)</span>
+            <input id="fee" type="text" class="primary_input" style="flex-grow: 1">
+        </div>
+
+        <input id="total_amount" type="text" class="primary_input"
+               placeholder="총 소요 코인 수">
+
+        <input id="sender_address" type="text" class="primary_input"
+               placeholder="보내는 지갑 주소">
+
+        <input id="secret_key" type="text" class="primary_input"
+               placeholder="보내는 시크릿 키">
+
+        <button class="button_primary" onclick="sendMoney()" style="margin-top: 12px">송금하기</button>
+
+        <div id="ledger_info_div" style="display: none;">
+            <div class="node-search-title" style="padding-bottom:3px; padding-top: 15px;">
+                <img src="<c:url value='/res/img/' />MarketReadIcon3.gif" alt="" width="4" height="5" style="padding-bottom: 3px">
+                <span class="CopyText2">ledger_info</span>
+            </div>
+
+            <div class="admin-page-search-table bgGreen" style="width:640px">
+                <span class="search-table-title-default MyMoneyText1" style="height: 30px;">account</span>
+
+                <span id="ledger_info_account" class="search-table-content-default" style="height: 30px;"></span>
+            </div>
+
+            <div class="admin-page-search-table bgGreen" style="border-top:none; width:640px;">
+                <span class="search-table-title-default MyMoneyText1" style="height: 30px;">status</span>
+
+                <span id="ledger_info_state" class="search-table-content-default" style="height: 30px;"></span>
+            </div>
+        </div>
+
+        <div id="transaction_list_div"></div>
+
+    </div>
+</div>
+</html>
