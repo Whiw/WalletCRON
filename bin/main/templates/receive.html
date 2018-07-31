@@ -50,8 +50,8 @@
     	$('#addressList').append(address_to_add);
     }
     
-    function addAddress() {
-    	textbox = "<p class='primary_input' style='width: 70% align-itmes: center' name='text1' id='text1' margin='10px' >Font Family</p>"
+    function addAddress(id) {
+    	textbox = "<p class='primary_input' style='width: 70% align-itmes: center' name='text1' id='text1' margin='10px' >" + id + "</p>"
     	
     	var addressinput = $('#addressRow');
     	$(".primary_content_row").remove();

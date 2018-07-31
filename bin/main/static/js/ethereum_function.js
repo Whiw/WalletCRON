@@ -283,3 +283,5 @@ var abiArray = [{
 	      "name": "Transfer",
 	      "type": "event"
 	    }];
+
+
