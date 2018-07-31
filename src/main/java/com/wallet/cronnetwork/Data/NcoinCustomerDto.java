@@ -1,5 +1,7 @@
 package com.wallet.cronnetwork.Data;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -14,22 +16,22 @@ public class NcoinCustomerDto {
 	String update_date;
 	int enabled;
 	
-/*	public int getEnabled() {
+	public int getEnabled() {
 		return enabled;
 	}
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public Date getUpdate_date() {
+	public String getUpdate_date() {
 		return update_date;
 	}
-	public void setUpdate_date(Date update_date) {
+	public void setUpdate_date(String update_date) {
 		this.update_date = update_date;
 	}
 	public int getIdx() {
@@ -67,5 +69,5 @@ public class NcoinCustomerDto {
 	}
 	public void setNcoin_address(String ncoin_address) {
 		this.ncoin_address = ncoin_address;
-	}*/
+	}
 }

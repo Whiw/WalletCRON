@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/config :: configFragment">
+    <title>로그인</title>
+</head>
+<header th:replace="fragments/header :: headerFragment"></header>
+
+<div class="primary_container">
+
+    <form class="primary_content_column" name='f' action='/login' method='POST' style="align-content: space-between">
+        <img th:src="@{img/favicon.png}" alt="" style="max-width: 296px; margin: 0px auto;">
+        <input class="primary_input" type='text' name='username' value=''
+               placeholder="아이디">
+        <input class="primary_input" type='password' name='password'
+               placeholder="비밀번호">
+        <button class="button_primary" name="submit" type="submit" value="로그인">로그인</button>
+    </form>
+    <div class="primary_content_row" >
+        <button class="button_dark" style="margin-right: 12px" onclick="location.href='/resetPw'">비밀번호 찾기</button>
+        <button class="button_dark" onclick="location.href='/signin'">회원가입</button>
+    </div>
+</div>
+</html>

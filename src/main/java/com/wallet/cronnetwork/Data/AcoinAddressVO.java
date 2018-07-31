@@ -15,6 +15,7 @@ public class AcoinAddressVO {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+		
 	}
 	public java.sql.Timestamp getReg_date() {
 		return reg_date;

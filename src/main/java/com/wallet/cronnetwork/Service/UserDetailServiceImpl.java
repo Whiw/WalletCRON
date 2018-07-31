@@ -1,6 +1,8 @@
 package com.wallet.cronnetwork.Service;
 
+import com.wallet.cronnetwork.Data.CronCustomerDto;
 import com.wallet.cronnetwork.Data.NcoinCustomerDto;
+import com.wallet.cronnetwork.Mapper.CronCustomerMapper;
 import com.wallet.cronnetwork.Mapper.NcoinCustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +19,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private NcoinCustomerMapper mapper;
+	
+	@Autowired
+	private CronCustomerMapper cmapper;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -24,7 +29,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		//System.out.println(mapper.findById(username).getId());
 		System.out.println(username);
 		NcoinCustomerDto customer = mapper.findById(username);
-
+		
 		if (customer == null)
 			throw new UsernameNotFoundException(username);
 		
