@@ -19,7 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**", "/static/**");
+        web.ignoring().antMatchers("/css/**")
+                .antMatchers("/js/**").antMatchers("/img/**");
         //web.ignoring().antMatchers("/res/**");
     }
 
@@ -30,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/signin").permitAll()
-                .antMatchers("/**").permitAll();
+                .antMatchers("/**").access(
+                "hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')");
 
         http.csrf().disable();
 

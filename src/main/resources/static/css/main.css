@@ -5,8 +5,15 @@
     border-top: 2px solid #F08B15;
     border-radius: 6px;
     box-shadow: 0px 0px 6px #bbb;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+
     flex-direction: column;
+    -webkit-box-orient: vertical;
+    -ms-flex-direction: column;
+
     align-items: center;
     color: #5a5a5a;
     font-size: 17px;

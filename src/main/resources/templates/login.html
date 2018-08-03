@@ -2,16 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="fragments/config :: configFragment">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
 </head>
 <header th:replace="fragments/header :: headerFragment"></header>
-
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+<body>
 <div class="primary_container">
 
-    <form class="primary_content_column" name='f' action='/login' method='POST' style="align-content: space-between">
+    <form class="primary_content_column" name='f' action='/login' method='POST' style="">
         <img th:src="@{img/favicon.png}" alt="" style="max-width: 296px; margin: 0px auto;">
         <input class="primary_input" type='text' name='username' value=''
-               placeholder="아이디">
+               placeholder="아이디" >
         <input class="primary_input" type='password' name='password'
                placeholder="비밀번호">
         <button class="button_primary" name="submit" type="submit" value="로그인">로그인</button>
@@ -21,4 +23,6 @@
         <button class="button_dark" onclick="location.href='/signin'">회원가입</button>
     </div>
 </div>
+</body>
+
 </html>

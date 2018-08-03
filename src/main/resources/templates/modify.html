@@ -5,6 +5,7 @@
     <title>정보수정</title>
 </head>
 <header th:replace="fragments/header :: headerFragment"></header>
+
 <div class="primary_container">
     <div class="primary_content_column">
         <h3>정보수정</h3>
@@ -22,7 +23,7 @@
 
         <div id="changePhoneForm" class="primary_content_column" style="display: none">
             <div class="primary_content_row" style="align-items: center">
-                <input id="phone" class="primary_input" placeholder="휴대폰번호" style="flex-grow: 1">
+                <input id="phone" class="primary_input" placeholder="휴대폰번호" style="flex-grow: 1; width: auto;">
                 <button class="button_dark" style="width: auto" onclick="sendSms()">인증번호 전송</button>
             </div>
             <p style="color: #bbb; font-size: 17px; padding-left: 10px">
@@ -30,11 +31,12 @@
                 EX)01012345678
             </p>
             <div class="primary_content_row" id="sms_container">
-                <input id="sms_code" class="primary_input" placeholder="인증번호" style="flex-grow: 1" >
+                <input id="sms_code" class="primary_input" placeholder="인증번호" style="flex-grow: 1; width: auto;" >
                 <button id="auth_btn" class="button_dark" style="width: auto" onclick="checkCode()" >인증</button>
             </div>
             <button class="button_primary" onclick="changeHP()">휴대폰번호 수정</button>
         </div>
     </div>
 </div>
+<script type="text/javascript" th:src="@{/js/modify.js}"></script>
 </html>

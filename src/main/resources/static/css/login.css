@@ -1,0 +1,8 @@
+#openNavBtn{
+    display: none;
+}
+
+.primary_content_column{
+    align-content: space-between;
+    -ms-flex-align:center;
+}
