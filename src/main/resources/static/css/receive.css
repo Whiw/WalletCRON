@@ -31,3 +31,8 @@ img{
     display: inline;
     align-self: center;
 }
+
+#addressRow{
+    width: 100%;
+    align-items: baseline;
+}
