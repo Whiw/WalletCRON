@@ -447,9 +447,11 @@
             console.log(logs);
         });
     }
+
     $(document).ready(function () {
         showTable();
     });
+
     function showTable() {
         var options = {
             "type":"table",
@@ -791,7 +793,7 @@
 
 
         // watch for an event with {some: 'args'}
-        var events = contract.allEvents({fromBlock: 	5937087, toBlock: 'latest'});
+        var events = contract.allEvents({fromBlock: 5937087, toBlock: 'latest'});
 
         var ldata = "aaba";
 

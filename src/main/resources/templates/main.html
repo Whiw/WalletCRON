@@ -75,7 +75,7 @@
                 var tokens = web3.toBigNumber(result).toString();
                 var token = web3.fromWei(tokens, 'ether') * Math.pow(10, 10);
 
-                $('#addressList').append('<div class="primary_content_row"><p>' +
+                $('#addressList').append('<div class="primary_content_row"><p style="margin-bottom: 0px">' +
                     addressList[a]  + ' : ' + token + '</p></div>');
             }
      /*       web3.eth.call({
