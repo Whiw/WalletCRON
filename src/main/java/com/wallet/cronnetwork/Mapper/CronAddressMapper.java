@@ -19,4 +19,8 @@ public interface CronAddressMapper {
 
 	@Select("SELECT address from cron_address_info WHERE id = #{id}")
 	ArrayList<String> getAddressList(String id);
+
+	@Select("SELECT count(*) FROM cron.cron_address_info where address = #{address} and id = #{id}")
+	int checkAddress(@Param("id")String id, @Param("address")String address);
+
 }

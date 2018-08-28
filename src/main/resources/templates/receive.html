@@ -11,7 +11,6 @@
         <div class="primary_content_column">
             <h3>받기</h3>
 
-
             <div th:if="${addressList.isEmpty()}" id="none_address_attention" class="attention" >
                 <p>등록된 지갑이</p>
                 <p>없습니다!</p>
@@ -31,20 +30,60 @@
 
             </c:forEach>-->
 
-            <button class="button_primary" onclick="createAddress()">지갑 생성</button>
+<!--            <button class="button_primary" onclick="createAddress()">지갑 생성</button>-->
+            <div class="primary_content_row" style="align-items: center; width: 100%">
+                <input id="input_address" class="primary_input" placeholder="주소" style="flex-grow: 1; width: auto;">
+                <button class="button_primary" style="width: auto" onclick="addAddress()">지갑주소 추가</button>
+            </div>
         </div>
 
     </div>
     
- <!--   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 <script type="text/javascript" th:src="@{/js/qrcode.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/web3.min.js}"> </script>
+<!--<script type="text/javascript" th:src="@{/js/web3.min.js}"> </script>-->
 <script type="text/javascript" th:src="@{/js/ethereumjs-tx-1.3.3.js}"> </script>
 <script type="text/javascript" th:src="@{/js/ethereum_function.js}"> </script>
     
     <script>
+        web3 = new Web3(new Web3.providers.HttpProvider("http://13.125.128.108:8545"));
+        function addAddress(){
+            var address = $("#input_address").val();
 
-    web3 = new Web3(new Web3.providers.HttpProvider("http://13.125.128.108:8545"));
+            if(address.length == 0) {
+                alert('지갑주소를 입력해주세요!');
+            }else{
+                var isAddress = web3.isAddress(address);
+                if(isAddress){
+                    var data = {
+                        address : address
+                    }
+
+                    $.ajax({
+                        url: '/api/addAddress',
+                        type: 'get',
+                        data : data,
+                        contentType : "application/json; charset=UTF-8",
+                        success: function (args) {
+                            console.log(args);
+                            if(args == 'addSuccess!!'){
+                                alert('추가완료!');
+                                location.reload();
+                            }else if(args == 'addressDuplicated!!'){
+                                alert('이미 추가했습니다!');
+                            }else{
+                                alert('추가실패!');
+                            }
+                        }
+                    });
+
+                }else{
+                    alert('유효하지 않은 지갑주소입니다!');
+                }
+            }
+        }
+
+
 /*    var account = web3.eth.accounts.create();
     console.log(account);*/
 
@@ -76,14 +115,14 @@
     }
 
     
-    function addAddress(id) {
+/*    function addAddress(id) {
     	textbox = "<p class='primary_input' style='width: 70% align-itmes: center' name='text1' id='text1' margin='10px' >" + id + "</p>"
     	
     	var addressinput = $('#addressRow');
     	$(".primary_content_row").remove();
     	$('#addressList').append(textbox);
     	
-    }
+    }*/
     function test() {
     	 var testval = $('.primary_input')[0].value;
     	  $.ajax({

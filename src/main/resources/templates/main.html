@@ -9,9 +9,12 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 
 <div layout:fragment="content" class="primary_container">
-    <div class="primary_content_column" >
-        <h2>내 지갑 정보</h2>
-        <p th:text="${amount} + 'NCN'" />
+    <h2>내 지갑 정보</h2>
+    <div id = "addressList" class="primary_content_column" >
+        <div th:if="${addressList.isEmpty()}" id="none_address_attention" class="attention" >
+            <p>등록된 지갑이</p>
+            <p>없습니다!</p>
+        </div>
     </div>
 
     <div class="primary_content_row" style="max-width: 700px; flex-wrap: wrap; justify-content: space-between;">
@@ -42,41 +45,85 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-<script>
-    web3 = new Web3(new Web3.providers.HttpProvider("http://13.125.128.108:8545"));
-    address = '0x78d4b9e8DCAE2F01ea0aF36e96A454c1e30648b0';
-    web3.eth.getBalance(address, function(error, result){
-        if(!error)
-            console.log(web3.fromWei(result, "ether") + " ETH");
-        else
-            console.log(error);
-    });
+<script th:inline="javascript">
+    var addressList = [[${addressList}]];
+    var tokenList = new Array();
+    var view = '<div class="primary_content_row">';
 
+    if(addressList.length > 0){
 
-/*
-    window.addEventListener('load', function () {
-        if (typeof web3 !== 'undefined') {
-            console.log('Web3 Detected! ' + web3.currentProvider.constructor.name);
-            window.web3 = new Web3(web3.currentProvider);
-        } else {
-            console.log('No Web3 Detected... using HTTP Provider')
-            window.web3 = new Web3(new Web3.providers.HttpProvider("http://13.125.128.108:8545"));
+        getAddress(addressList);
 
-            getBalance();
-        }
-    })
-
-    function getBalance() {
-        var address, wei, balance
-        address = '0x78d4b9e8DCAE2F01ea0aF36e96A454c1e30648b0';
-        try {
-            var balance = web3.eth.getBalance("0x407d73d8a49eeb85d32cf465507dd71d507100c1");
-            console.log(balance.toString(10))
-        } catch (err) {
-            console.log('error');
-        }
     }
-*/
+
+    function getAddress(addressList) {
+
+        $('#addressList').empty();
+        web3 = new Web3(new Web3.providers.HttpProvider("http://13.125.128.108:8545"));
+        var contractAddress = '0x9e3c20d3eb1543d62a37df9b85d85bfec3994faf';
+
+        for(a = 0; a < addressList.length; a ++){
+            console.log(a);
+            view += '<p>' + addressList[a];
+            var contractData = '0x70a08231000000000000000000000000' + addressList[a].substring(2);
+            var result = web3.eth.call({
+                to:contractAddress,
+                data: contractData
+            });
+
+            if (result) {
+                var tokens = web3.toBigNumber(result).toString();
+                var token = web3.fromWei(tokens, 'ether') * Math.pow(10, 10);
+
+                $('#addressList').append('<div class="primary_content_row"><p>' +
+                    addressList[a]  + ' : ' + token + '</p></div>');
+            }
+     /*       web3.eth.call({
+                to:contractAddress,
+                data: contractData
+            }, function(err, result) {
+                if (result) {
+                    var tokens = web3.toBigNumber(result).toString();
+                    var token = web3.fromWei(tokens, 'ether') * Math.pow(10, 10);
+                    tokenList.push(token);
+                    console.log(token);
+                }
+                else {
+                    alert(err);
+                }
+            });*/
+
+
+        }
+
+
+    }
+
+
+    /*
+        window.addEventListener('load', function () {
+            if (typeof web3 !== 'undefined') {
+                console.log('Web3 Detected! ' + web3.currentProvider.constructor.name);
+                window.web3 = new Web3(web3.currentProvider);
+            } else {
+                console.log('No Web3 Detected... using HTTP Provider')
+                window.web3 = new Web3(new Web3.providers.HttpProvider("http://13.125.128.108:8545"));
+
+                getBalance();
+            }
+        })
+
+        function getBalance() {
+            var address, wei, balance
+            address = '0x78d4b9e8DCAE2F01ea0aF36e96A454c1e30648b0';
+            try {
+                var balance = web3.eth.getBalance("0x407d73d8a49eeb85d32cf465507dd71d507100c1");
+                console.log(balance.toString(10))
+            } catch (err) {
+                console.log('error');
+            }
+        }
+    */
 
 
 </script>

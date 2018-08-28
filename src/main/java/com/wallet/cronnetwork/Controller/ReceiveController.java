@@ -52,10 +52,6 @@ public class ReceiveController {
     	System.out.println(thisval);
     	System.out.println(json);
     	
-    	
-    	
-    	
-    	
     	return json.toString();
     }
 
@@ -71,5 +67,25 @@ public class ReceiveController {
         }else{
             return "insertFail!!";
         }
+    }
+
+    @RequestMapping("/api/addAddress")
+    @ResponseBody
+    public String addAddress(@RequestParam("address") String address){
+        String id = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if(cronAddressMapper.checkAddress(id, address) > 0){
+            return "addressDuplicated!!";
+        }else{
+            int insertResult = cronAddressMapper.insertAddress(id, address);
+
+            if(insertResult > 0){
+                return "addSuccess!!";
+            }else{
+                return "addFail!!";
+            }
+        }
+
+
     }
 }
