@@ -87,6 +87,36 @@ function addCustomer() {
 
 }
 
+function chkHpDuplicated() {
+    var phone = $("#phone").val();
+
+    if($('#id').prop('disabled') == false){
+        alert('아이디 중복확인을 진행해주세요!');
+    }else if(phone.length == 0){
+        alert('휴대폰번호를 입력해주세요!');
+    }else{
+
+        var data = {
+            phone : phone
+        }
+        $.ajax({
+            url: '/api/hpDuplicateChk',
+            type: 'get',
+            data: data,
+            contentType : "application/json; charset=UTF-8",
+            success: function (args) {
+                console.log(args);
+                if(args == 'HpNotDuplictaed!!') {
+                    alert('사용가능한 번호입니다!');
+                    $('#phone').prop('disabled', true);
+                }else if(args == 'HpDuplicated!!'){
+                    alert('중복되는 번호입니다!');
+                }
+            }
+        });
+    }
+}
+
 function sendSms() {
     //?id=geopia&pwd=wldhsms&code=$code&snum=027868200&rnum=$mobile&msg=$msg&userid=geopia&ipAddr=$_SERVER[REMOTE_ADDR]
     var data;
@@ -133,17 +163,20 @@ function sendSms() {
 
 function checkCode() {
     var sms_code = $("#sms_code").val();
+    var num = $('#phone').val();
 
     if ( sms_code.length > 0 && sms_code != "Default text" ){
 
         var data = {
-            sms_code: sms_code
+            code: sms_code,
+            num: num
         }
+
 
         $.ajax({
             url: '/api/chkCode',
-            type: 'get',
-            data: data,
+            type: 'post',
+            data: JSON.stringify(data),
             contentType : "application/json; charset=UTF-8",
             success: function (args) {
                 if(args == 'codeChkSuccess!!'){

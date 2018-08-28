@@ -41,9 +41,44 @@
         </div>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 <script>
-console.log(amount);
+    web3 = new Web3(new Web3.providers.HttpProvider("http://13.125.128.108:8545"));
+    address = '0x78d4b9e8DCAE2F01ea0aF36e96A454c1e30648b0';
+    web3.eth.getBalance(address, function(error, result){
+        if(!error)
+            console.log(web3.fromWei(result, "ether") + " ETH");
+        else
+            console.log(error);
+    });
+
+
+/*
+    window.addEventListener('load', function () {
+        if (typeof web3 !== 'undefined') {
+            console.log('Web3 Detected! ' + web3.currentProvider.constructor.name);
+            window.web3 = new Web3(web3.currentProvider);
+        } else {
+            console.log('No Web3 Detected... using HTTP Provider')
+            window.web3 = new Web3(new Web3.providers.HttpProvider("http://13.125.128.108:8545"));
+
+            getBalance();
+        }
+    })
+
+    function getBalance() {
+        var address, wei, balance
+        address = '0x78d4b9e8DCAE2F01ea0aF36e96A454c1e30648b0';
+        try {
+            var balance = web3.eth.getBalance("0x407d73d8a49eeb85d32cf465507dd71d507100c1");
+            console.log(balance.toString(10))
+        } catch (err) {
+            console.log('error');
+        }
+    }
+*/
+
+
 </script>
 
 <!--<footer th:replace="fragments/footer :: footerFragment"></footer>-->

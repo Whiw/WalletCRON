@@ -1,6 +1,11 @@
-input{
+.primary_input{
     padding: 10px 15px;
     box-shadow: none;
     border-bottom: 2px solid #ddd;
     background: #fff;
+    width: auto;
+}
+
+#openNavBtn{
+    display: none;
 }

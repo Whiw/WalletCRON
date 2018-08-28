@@ -14,9 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.wallet.cronnetwork.Data.CronCustomerDto;
 import com.wallet.cronnetwork.Data.MyAuthDto;
-import com.wallet.cronnetwork.Data.NcoinCustomerDto;
 import com.wallet.cronnetwork.Service.CUserServiceImpl;
-import com.wallet.cronnetwork.Service.UserServiceImpl;
 
 @Component
 public class CAuthProvider implements AuthenticationProvider {
@@ -40,7 +38,6 @@ public class CAuthProvider implements AuthenticationProvider {
             return null;
         }
 
-        System.out.println(cronCustomerDto.getId());
 
         switch (cronCustomerDto.getEnabled()){
             case 1:
@@ -51,6 +48,11 @@ public class CAuthProvider implements AuthenticationProvider {
                 break;
 
         }
+
+        if(cronCustomerDto.getOtp().equals("1")){
+            role = "ROLE_TEMPORARY";
+        }
+
 
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<GrantedAuthority>();
         grantedAuthorityList.add(new SimpleGrantedAuthority(role));

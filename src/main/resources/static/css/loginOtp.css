@@ -1,0 +1,10 @@
+#openNavBtn{
+    display: none;
+}
+
+.primary_content_column{
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    justify-content: space-around
+}

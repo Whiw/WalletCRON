@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/config :: configFragment">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+</head>
+<header th:replace="fragments/header :: headerFragment"></header>
+<link rel="stylesheet" type="text/css" th:href="@{/css/loginOtp.css}" />
+<body>
+<div class="primary_container">
+    <div class="primary_content_column">
+        <img th:src="@{img/google-auth.png}" alt="" style="margin-top: 20px">
+        <input id="otp_login_key" class="primary_input" style="width: 60%; text-align: center"
+               placeholder="구글 authenticator 키를 입력해주세요!">
+        <button class="button_primary" style="width: 60%;" onclick="otpLogin()">OTP 로그인</button>
+        <button class="button_primary" style="width: 60%;" onclick="location.href='/logout'">로그인 취소</button>
+
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/loginOtp.js}"></script>
+</html>

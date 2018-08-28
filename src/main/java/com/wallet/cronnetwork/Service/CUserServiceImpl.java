@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.wallet.cronnetwork.Data.CronCustomerDto;
 import com.wallet.cronnetwork.Data.MyAuthDto;
-import com.wallet.cronnetwork.Data.NcoinCustomerDto;
 import com.wallet.cronnetwork.Mapper.CronCustomerMapper;
-import com.wallet.cronnetwork.Mapper.NcoinCustomerMapper;
 
 @Service
 public class CUserServiceImpl implements CUserService {

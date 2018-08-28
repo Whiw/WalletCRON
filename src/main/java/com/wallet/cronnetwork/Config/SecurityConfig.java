@@ -30,7 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/signin").permitAll()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/resetPw").permitAll()
+                .antMatchers("/loginOtp").access("hasRole('ROLE_TEMPORARY')")
                 .antMatchers("/**").access(
                 "hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')");
 
@@ -40,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/")
-                .failureUrl("/error").
+                .failureUrl("/login_error").
                 usernameParameter("username").passwordParameter("password").permitAll();
 
         http.logout()

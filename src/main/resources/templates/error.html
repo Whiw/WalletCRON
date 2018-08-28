@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/config :: configFragment">
+    <title>로그인 실패!</title>
+</head>
+<header th:replace="fragments/header :: headerFragment"></header>
+<script>
+    alert('로그인 실패!');
+    location.replace('/login');
+</script>
+</html>
