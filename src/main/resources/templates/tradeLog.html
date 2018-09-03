@@ -41,6 +41,7 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" th:src="@{/js/ethereum_function.js}"> </script>
 <script type="text/javascript" th:src="@{/js/listing_table.js}"> </script>
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 <script>
@@ -51,288 +52,9 @@
     var totalPage;//총 페이지 수
     var startPage = 0;
     var startRow = 1;
-    var array;
-    var abiArray = [{
-        "constant": true,
-        "inputs": [],
-        "name": "name",
-        "outputs": [
-            {
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "_spender",
-                    "type": "address"
-                },
-                {
-                    "name": "_value",
-                    "type": "uint256"
-                }
-            ],
-            "name": "approve",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "totalSupply",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "_from",
-                    "type": "address"
-                },
-                {
-                    "name": "_to",
-                    "type": "address"
-                },
-                {
-                    "name": "_value",
-                    "type": "uint256"
-                }
-            ],
-            "name": "transferFrom",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "INITIAL_SUPPLY",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "decimals",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "_spender",
-                    "type": "address"
-                },
-                {
-                    "name": "_subtractedValue",
-                    "type": "uint256"
-                }
-            ],
-            "name": "decreaseApproval",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "_owner",
-                    "type": "address"
-                }
-            ],
-            "name": "balanceOf",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "symbol",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "string"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "_to",
-                    "type": "address"
-                },
-                {
-                    "name": "_value",
-                    "type": "uint256"
-                }
-            ],
-            "name": "transfer",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "_spender",
-                    "type": "address"
-                },
-                {
-                    "name": "_addedValue",
-                    "type": "uint256"
-                }
-            ],
-            "name": "increaseApproval",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "_owner",
-                    "type": "address"
-                },
-                {
-                    "name": "_spender",
-                    "type": "address"
-                }
-            ],
-            "name": "allowance",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": true,
-                    "name": "owner",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "indexed": false,
-                    "name": "value",
-                    "type": "uint256"
-                }
-            ],
-            "name": "Approval",
-            "type": "event"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": true,
-                    "name": "from",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "indexed": false,
-                    "name": "value",
-                    "type": "uint256"
-                }
-            ],
-            "name": "Transfer",
-            "type": "event"
-        }];
+    var array = {
+
+    };
 
     web3 = new Web3(new Web3.providers.HttpProvider('http://13.125.128.108:8545'));
 
@@ -346,24 +68,6 @@
             }
         });
 
-        //받은내역 클릭
-        /*        $("#tradeLog_button_container").on('click', '#receive_transactions', function (event) {
-                    $('#receive_transactions').removeClass("button_primary").addClass("button_dark_fixed");
-                    $('#send_transactions').removeClass("button_dark_fixed").addClass("button_primary");
-                    $("#receive_transactions").prop('disabled', true);
-                    $("#send_transactions").prop('disabled', false);
-                    getTradeLog('receive');
-                    pageReset();
-                    //보낸내역 클릭
-                }).on('click', '#send_transactions', function (event){
-                    $('#receive_transactions').removeClass("button_dark_fixed").addClass("button_primary");
-                    $('#send_transactions').removeClass("button_primary").addClass("button_dark_fixed");
-                    $("#send_transactions").prop('disabled', true);
-                    $("#receive_transactions").prop('disabled', false);
-                    getTradeLog('send');
-                    pageReset();
-                });*/
-
         $('#page_container').on('click', 'span', function (event) {
 
             if(page + 1 != $(this).text()){
@@ -372,14 +76,13 @@
 
             showLog(array);
 
-
         });
     });
 
 
     function getAddress() {
         pageReset()
-        getTradeLog();
+        showTable();
     }
 
     function showLog(array){
@@ -390,19 +93,19 @@
         if(endRow > totalCount){
             endRow = totalCount;
         }
-        for(var i = startRow - 1; i < endRow; i ++ ){
-            console.log(i);
-            console.log(array[i].destination);
-            console.log(array[i].account);
 
-            table += '<div class="primary_content_row" style="justify-content: space-between; align-items: center; margin-top: 12px" >' +
-                '<div style="text-align: center;">' + array[i].reg_date + '</div>';
+        console.log(endRow);
+        for(var i = startRow - 1; i < endRow; i ++ ){
+            table += '<div class="primary_content_row" style="justify-content: space-between; align-items: center; margin-top: 12px" >';
+            /*            table += '<div class="primary_content_row" style="justify-content: space-between; align-items: center; margin-top: 12px" >' +
+                            '<div style="text-align: center;">' + array[i].reg_date + '</div>';*/
+
             //입금일경우
-            if(array[i].destination == address){
+            if(array[i].destination == address.toLowerCase()){
                 table += '<div class="primary_content_column"><span style="color: red">입금</span>'
                     + '<span>' + array[i].account + '</span></div>';
                 //송금일경우
-            }else if(array[i].account == address){
+            }else if(array[i].account == address.toLowerCase()){
                 table += '<div class="primary_content_column"><span style="color: blue">송금</span>'
                     + '<span>' + array[i].destination + '</span></div>';
             }
@@ -438,21 +141,14 @@
         $('#tradeList').empty();
     }
 
-    function getTradeLog(){
-        $('#click_attention').css('display', 'none');
-        var contract = web3.eth.contract(abiArray).at(address);
-        var events = contract.allEvents({fromBlock: 	5937087, toBlock: 'latest'});
 
-        events.get(function(error, logs){
-            console.log(logs);
-        });
-    }
 
-    $(document).ready(function () {
+/*    $(document).ready(function () {
         showTable();
-    });
+    });*/
 
     function showTable() {
+        $('#click_attention').css('display', 'none');
         var options = {
             "type":"table",
             "table": {"class": "table_templete_admin", "attrs": "cellspacing=\"0\""},
@@ -497,311 +193,22 @@
                 "class": "paging_templete_admin",
                 "onclick": function (event) {
                     page = event.data.page;
-                    showTable();
                 }
             }
         };
-
-
-        var abiArray = [{
-            "constant": true,
-            "inputs": [],
-            "name": "name",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "string"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_spender",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_value",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "approve",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "bool"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "totalSupply",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_from",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_to",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_value",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "transferFrom",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "bool"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "INITIAL_SUPPLY",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "decimals",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_spender",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_subtractedValue",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "decreaseApproval",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "bool"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [
-                    {
-                        "name": "_owner",
-                        "type": "address"
-                    }
-                ],
-                "name": "balanceOf",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "symbol",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "string"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_to",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_value",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "transfer",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "bool"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_spender",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_addedValue",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "increaseApproval",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "bool"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [
-                    {
-                        "name": "_owner",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_spender",
-                        "type": "address"
-                    }
-                ],
-                "name": "allowance",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "inputs": [],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "constructor"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": true,
-                        "name": "owner",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": true,
-                        "name": "spender",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": false,
-                        "name": "value",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "Approval",
-                "type": "event"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": true,
-                        "name": "from",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": true,
-                        "name": "to",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": false,
-                        "name": "value",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "Transfer",
-                "type": "event"
-            }];
-
         web3 = new Web3(new Web3.providers.HttpProvider('http://13.125.128.108:8545'));
-
 
         var contractAddress = "0x9e3c20d3eb1543d62a37df9b85d85bfec3994faf";
         var contract = web3.eth.contract(abiArray).at(contractAddress);
 
-
         // watch for an event with {some: 'args'}
-        var events = contract.allEvents({fromBlock: 5937087, toBlock: 'latest'});
 
-        var ldata = "aaba";
-
-        var logsData = [];
+        console.log(address);
+        var events = contract.allEvents({fromBlock: 5937087, toBlock: 'latest',
+        filter : {from : address, to :address}});
 
         events.get(function(error, logs){
 
-            console.log(logs);
 
             var page2 = {
                 "currentPage" : 1,
@@ -827,37 +234,30 @@
             var accountlist = [];
 
             //----------
-            tableData = {
-                "page" : {
-                    "currentPage" : 1,
-                    "offset" : 0,
-                    "limit" : logs.length,
-                    "totalCount" : logs.length,
-                    "totalPage" : 1
-                },
-                "list" : []
-            };
+            tableData = new Array();
 
             $.each(logs, function(key, val) {
-                tableData.list[key] = {
+                tableData[key] = {
                     "row_num" : logs.length - key,
                     "transaction_hash" : val.transactionHash,
                     "amount" : val.args.value.c[0] * 0.00000001,
                     "destination" : val.args.to,
                     "account" : val.args.from,
-
-                    "address" : val.address,
-                    "blockHash" : val.blockHash,
-                    "blockNumber" : val.blockNumber,
                     "event" : val.event,
-                    "logIndex" : val.logIndex,
-                    "removed" : val.removed,
-                    "transactionIndex" : val.transactionIndex,
+                    "address" : val.address,
                 };
 
             });
+/*            console.log(tableData[0]);
+            console.log(tableData[0].destination);*/
+/*
+            console.log(array[0].destination);
+*/
 
-            new ListingTable(tableData, options).show('#trade-list-table');
+            totalCount = tableData.length;
+            showLog(tableData);
+
+/*            new ListingTable(tableData, options).show('#trade-list-table');*/
             //----------
 
         });
